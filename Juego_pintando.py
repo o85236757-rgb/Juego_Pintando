@@ -9,8 +9,10 @@ Exercises
 5. Add width parameter.
 """
 
-from turtle import *
+"""Paint, for drawing shapes."""
 
+from turtle import *
+from turtle import circle as turtle_circle
 from freegames import vector
 
 
@@ -37,8 +39,16 @@ def square(start, end):
 
 
 def circle(start, end):
-    """Draw circle from start to end."""
-    pass  # TODO
+    """Draw a circle centered at start."""
+    radius = ((end.x - start.x)**2 + (end.y - start.y)**2)**0.5
+
+    up()
+    goto(start.x, start.y - radius)
+    setheading(0)
+    down()
+    begin_fill()
+    turtle_circle(radius)
+    end_fill()
 
 
 def rectangle(start, end):
@@ -70,18 +80,24 @@ def store(key, value):
 
 
 state = {'start': None, 'shape': line}
+
 setup(420, 420, 370, 0)
 onscreenclick(tap)
 listen()
+
 onkey(undo, 'u')
+
 onkey(lambda: color('black'), 'K')
 onkey(lambda: color('white'), 'W')
 onkey(lambda: color('green'), 'G')
 onkey(lambda: color('blue'), 'B')
 onkey(lambda: color('red'), 'R')
+onkey(lambda: color('purple'), 'P')
+
 onkey(lambda: store('shape', line), 'l')
 onkey(lambda: store('shape', square), 's')
 onkey(lambda: store('shape', circle), 'c')
 onkey(lambda: store('shape', rectangle), 'r')
 onkey(lambda: store('shape', triangle), 't')
+
 done()
